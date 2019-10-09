@@ -1,0 +1,14 @@
+extends ../layouts/common
+
+block content
+	h1 User
+	table.table
+		tr
+			th Name
+			th Phone
+			th Avatar
+		tr
+			td= user.name
+			td= user.phone
+			td
+				img(src=user.avatar, width="64")

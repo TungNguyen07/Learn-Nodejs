@@ -1,0 +1,64 @@
+extends ../layouts/common
+
+block content
+	h1
+		span Product
+		a.btn.btn-primary.ml-2(href="/products/create/") New
+	.d-flex.align-items-center
+		form.ml-auto.d-flex(action="/products/search" method="GET")
+			input.form-control(type="text" name="q" class="mr-2")
+			button.btn.btn-primary Search
+	table.table
+		tr
+			th Illustration
+			th Name
+			th Description
+			th Action
+
+		each product in products
+			tr
+				td
+					img(src=product.avatar alt= "Hide", width="64")
+				td= product.name
+				td= product.description
+				td
+					a.btn.btn-primary(href="/cart/add/"+product.id) Add to cart
+	nav.d-flex.justify-content-center
+		ul.pagination
+			if page==1
+				li.page-item.disabled
+					a.page-link(href="") Previous
+			else
+				li.page-item
+					a.page-link(href="/products?page=" + (page-1)) Previous
+				li.page-item
+					a.page-link(href="/products?page=" + 1)= 1
+			if page-2>1
+				li.page-item.disabled
+					a.page-link(href="") ...
+			if page==1 || page==2
+				li.page-item.d-none
+					a.page-link(href="")
+			else
+				li.page-item
+					a.page-link(href="/products?page=" +(page - 1))= (page-1)
+			li.page-item.active
+				span.page-link=(page)
+				span.sr-only
+			if page==lengthOfPage || page==lengthOfPage-1
+				li.page-item.d-none
+					a.page-link(href="")
+			else
+				li.page-item
+					a.page-link(href="/products?page=" +(page + 1))= (page+1)
+			if page+2<lengthOfPage
+				li.page-item.disabled
+					a.page-link(href="") ...
+			if page==lengthOfPage
+				li.page-item.disabled
+					a.page-link(href="") Next
+			else
+				li.page-item
+					a.page-link(href="/products?page=" +(lengthOfPage))= lengthOfPage
+				li.page-item
+					a.page-link(href="/products?page=" + (page+1)) Next
