@@ -9,15 +9,18 @@ var cookiePaser = require('cookie-parser');
 var productRoute = require('./routes/products.route');
 var cartRoute = require('./routes/cart.route');
 var sessionMiddleware = require('./middleware/sessions.middleware');
+var mongoose = require('mongoose');
 //var db = require('./db');
 //var shortId = require('shortId');
 
+mongoose.connect('mongodb://localhost/express');
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookiePaser('oyMawj0nbQ'));
 app.use(sessionMiddleware);
+
 
 app.get('/', function(req, res){ //homepage
 	res.render('index',{

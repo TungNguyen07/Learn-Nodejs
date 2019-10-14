@@ -16,7 +16,7 @@ html
             a.nav-link(href='/products') Products
       if user
         p.mt-3= user.name
-        a.button.btn.btn-primary.ml-3(href="") Log out
+        a.button.btn.btn-primary.ml-3(href="/users/logout") Log out
     .container.pt-5
 
       block content

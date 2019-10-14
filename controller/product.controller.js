@@ -1,10 +1,11 @@
 var shortId = require('shortId');
-var db = require('../db');
+//var db = require('../db');
+var Product = require('../model/product.model');
 
-module.exports.index = function(req, res, next){
+module.exports.index = async function(req, res, next){
     var page = parseInt(req.query.page) || 1;
 	var perPage = 10;
-	var products = db.get('products').value();
+	var products = await Product.find();
 	var lengthOfPage = Math.ceil(products.length/10);
 	var begin = (page - 1) * perPage;
 	var end = page * perPage;
@@ -15,11 +16,11 @@ module.exports.index = function(req, res, next){
 	});
 }
 
-module.exports.search = function(req, res, next){
+module.exports.search = async function(req, res, next){
     var q = req.query.q;
 	var page = parseInt(req.query.page) || 1;
 	var perPage = 10;
-	var products = db.get('products').value();
+	var products = await Product.find();
 	var begin = (page - 1) * perPage;
 	var end = page * perPage;
 	var matchedProducts = products.filter(product =>{
